@@ -11,4 +11,9 @@ class Reply extends Model
 
     public $incrementing = false;
     //
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
