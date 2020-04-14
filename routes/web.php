@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/threads', 'ThreadsController@index');
+Route::get('/thread/{thread}', 'ThreadsController@show')->name('thread-show');
