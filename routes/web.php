@@ -22,4 +22,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/threads', 'ThreadsController@index');
-Route::get('/thread/{thread}', 'ThreadsController@show')->name('thread-show');
+Route::get('/threads/{thread}', 'ThreadsController@show')->name('thread-show');
