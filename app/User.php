@@ -12,6 +12,11 @@ class User extends Authenticatable
     use Uuids;
     use Notifiable;
 
+    /**
+     * Model non-incremental and non-numeric ID
+     *
+     * @var bool
+     */
     public $incrementing = false;
 
     /**

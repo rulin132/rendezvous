@@ -12,7 +12,7 @@ class ReadsThreadsTest extends TestCase
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
-    private $thread;
+    protected $thread;
 
     public function setUp(): void
     {
@@ -30,7 +30,7 @@ class ReadsThreadsTest extends TestCase
     /** @test */
     public function a_user_can_view_a_thread()
     {
-        $this->get('/threads/' . $this->thread->id)
+        $this->get(route('thread-show', ['thread' => $this->thread->id]))
             ->assertSee($this->thread->title);
     }
 
@@ -40,7 +40,7 @@ class ReadsThreadsTest extends TestCase
         $reply = factory('App\Reply')
             ->create(['thread_id' => $this->thread->id]);
 
-        $this->get('/threads/' . $this->thread->id)
+        $this->get(route('thread-show', ['thread' => $this->thread->id]))
             ->assertSee($reply->body);
     }
 }
