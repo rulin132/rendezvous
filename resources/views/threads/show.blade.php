@@ -34,6 +34,10 @@
                     <div class="card-body">
                         @foreach($thread->replies as $reply)
                             @include ('threads.reply')
+
+                            @if(!$loop->last)
+                                <hr />
+                            @endif
                         @endforeach
                     </div>
                 </div>
