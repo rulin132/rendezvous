@@ -28,7 +28,7 @@ class ParticipateInRendezvousTest extends TestCase
     {
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
-        $this->post(route('thread-replies', [
+        $this->post(route('threads-reply.store', [
             'thread' => $this->thread->id
         ]), []);
     }
@@ -46,9 +46,9 @@ class ParticipateInRendezvousTest extends TestCase
             'thread' => $this->thread->id
         ];
 
-        $this->post(route('thread-replies', $attributes), $reply->toArray());
+        $this->post(route('threads-reply.store', $attributes), $reply->toArray());
 
-        $this->get(route('thread-show', $attributes))
+        $this->get(route('threads.show', $attributes))
             ->assertSee($reply->body);
     }
 }

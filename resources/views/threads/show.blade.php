@@ -47,7 +47,7 @@
         @if (auth()->check())
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <form method="post" action="{{route('thread-replies',$thread->id)}}">
+                    <form method="post" action="{{ route('threads-reply.store', $thread->id) }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <textarea name="body" id="body" class="form-control" placeholder="Whats your opinion?" rows="5"></textarea>
@@ -57,7 +57,7 @@
                 </div>
             </div>
         @else
-            <p class="text-center">Please <a href="{{Route('login')}}">Login</a> to post your opinion to the topic.</p>
+            <p class="text-center">Please <a href="{{ Route('login') }}">Login</a> to post your opinion to the topic.</p>
         @endif
     </div>
 @endsection

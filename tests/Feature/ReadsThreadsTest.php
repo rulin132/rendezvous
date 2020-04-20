@@ -24,14 +24,14 @@ class ReadsThreadsTest extends TestCase
     /** @test */
     public function a_user_can_browse_threads()
     {
-        $this->get('/threads')
+        $this->get(Route('threads.index'))
             ->assertSee($this->thread->title);
     }
 
     /** @test */
     public function a_user_can_view_a_thread()
     {
-        $this->get(route('thread-show', ['thread' => $this->thread->id]))
+        $this->get(route('threads.show', ['thread' => $this->thread->id]))
             ->assertSee($this->thread->title);
     }
 
@@ -40,7 +40,7 @@ class ReadsThreadsTest extends TestCase
     {
         $reply = create('App\Reply', ['thread_id' => $this->thread->id]);
 
-        $this->get(route('thread-show', ['thread' => $this->thread->id]))
+        $this->get(route('threads.show', ['thread' => $this->thread->id]))
             ->assertSee($reply->body);
     }
 }

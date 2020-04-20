@@ -48,7 +48,7 @@ class ThreadsController extends Controller
             'body'  => request('body'),
         ]);
 
-        return Redirect(Route('threads'));
+        return Redirect(Route('threads.index'));
     }
 
     /**

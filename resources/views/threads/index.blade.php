@@ -12,7 +12,7 @@
                 @foreach($threads as $thread)
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{route('thread-show',$thread->id)}}">{{ $thread->title }}</a></h5>
+                            <h5 class="card-title"><a href="{{ route('threads.show', $thread->id) }}">{{ $thread->title }}</a></h5>
 
                             {{ $thread->body }}
                         </div>
