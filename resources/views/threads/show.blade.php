@@ -11,7 +11,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8 ">
-                <div class="card mb-3 pt-3 pb-3">
+                <div class="card mb-3">
                     <div class="card-body" style="font-size: 15px">
                         {{ $thread->body }}
                     </div>
