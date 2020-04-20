@@ -26,6 +26,8 @@ class ParticipateInRendezvousTest extends TestCase
     /** @test */
     public function unauthenticated_users_may_not_add_replies()
     {
+        $this->withoutExceptionHandling();
+
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $this->post(route('threads-reply.store', [
