@@ -32,13 +32,17 @@
             <div class="col-md-8">
                 <div class="card  mb-3">
                     <div class="card-body">
-                        @foreach($thread->replies as $reply)
-                            @include ('threads.reply')
+                        @if (count($thread->replies))
+                            @foreach($thread->replies as $reply)
+                                @include ('threads.reply')
 
-                            @if(!$loop->last)
-                                <hr />
-                            @endif
-                        @endforeach
+                                @if(!$loop->last)
+                                    <hr />
+                                @endif
+                            @endforeach
+                        @else
+                            <i>Be the first to reply to this topic below.</i>
+                        @endif
                     </div>
                 </div>
             </div>
