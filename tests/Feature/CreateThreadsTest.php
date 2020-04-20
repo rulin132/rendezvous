@@ -11,27 +11,35 @@ class CreateThreadsTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
+     */
+    protected $thread;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->thread = create('App\Thread');
+    }
+
     /** @test */
     function guests_may_not_create_threads()
     {
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
-        $thread = factory('App\Thread')->make();
-
-        $this->post('/threads', $thread->toArray());
+        $this->post('/threads', $this->thread->toArray());
     }
 
     /** @test */
     function an_authenticated_user_can_create_new_forum_threads()
     {
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
-        $thread = factory('App\Thread')->make();
-
-        $this->post('/threads', $thread->toArray());
+        $this->post('/threads', $this->thread->toArray());
 
         $this->get(Route('threads'))
-            ->assertSee($thread->title)
-            ->assertSee($thread->body);
+            ->assertSee($this->thread->title)
+            ->assertSee($this->thread->body);
     }
 }

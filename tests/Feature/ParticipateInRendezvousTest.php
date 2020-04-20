@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -9,30 +11,44 @@ class ParticipateInRendezvousTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @var Collection|Model|mixed
+     */
+    protected $thread;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->thread = create('App\Thread');
+    }
+
     /** @test */
     public function unauthenticated_users_may_not_add_replies()
     {
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
-        $thread = factory('App\Thread')->create();
-
-        $this->post(route('thread-replies', ['thread' => $thread->id]), []);
+        $this->post(route('thread-replies', [
+            'thread' => $this->thread->id
+        ]), []);
     }
 
     /** @test */
     public function an_authenticated_user_may_participate_in_threads()
     {
-        $user = factory('App\User')->create();
+        $user = create('App\User');
 
         $this->signIn($user);
 
-        $thread = factory('App\Thread')->create();
+        $reply = make('App\Reply');
 
-        $reply = factory('App\Reply')->make();
+        $attributes = [
+            'thread' => $this->thread->id
+        ];
 
-        $this->post(route('thread-replies', ['thread' => $thread->id]), $reply->toArray());
+        $this->post(route('thread-replies', $attributes), $reply->toArray());
 
-        $this->get(route('thread-show', ['thread' => $thread->id]))
+        $this->get(route('thread-show', $attributes))
             ->assertSee($reply->body);
     }
 }
