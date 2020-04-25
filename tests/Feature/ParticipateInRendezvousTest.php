@@ -53,4 +53,18 @@ class ParticipateInRendezvousTest extends TestCase
         $this->get(route('threads.show', $attributes))
             ->assertSee($reply->body);
     }
+
+    /** @test */
+    public function a_reply_requires_a_body()
+    {
+        $this->signIn();
+
+        $reply = make('App\Reply', ['body' => null]);
+
+
+
+        $this->post(Route('threads-reply.store', $this->thread->id), $reply->toArray())
+            ->assertSessionHasErrors('body');
+    }
+
 }
