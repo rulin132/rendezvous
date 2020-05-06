@@ -50,7 +50,7 @@ class ParticipateInRendezvousTest extends TestCase
 
         $this->post(route('threads-reply.store', $attributes), $reply->toArray());
 
-        $this->get(route('threads.show', $attributes))
+        $this->get($this->thread->path())
             ->assertSee($reply->body);
     }
 

@@ -23,7 +23,7 @@ class Thread extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'title', 'body'
+        'user_id', 'channel_id', 'title', 'body'
     ];
 
     public function replies()
@@ -36,10 +36,21 @@ class Thread extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
+    }
+
     public function addReply($reply)
     {
         $this->replies()->create($reply);
 
         return back();
     }
+
+    public function path()
+    {
+        return "/threads/{$this->channel->slug}/{$this->id}";
+    }
+
 }
